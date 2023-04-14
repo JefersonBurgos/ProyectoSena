@@ -1,0 +1,43 @@
+h1{
+    color:#377bb5;
+    text-align: center;
+    background-color: lightblue;
+}
+
+form{
+    width: 400px;
+    margin: auto;
+    padding: 25px;
+    background-color: #ffff;
+}
+
+form input{
+    padding: 1px;
+    border: 2px solid #f5f5f5;
+    border-radius: 3px;
+    margin: 6px;
+}
+
+#btRegistrar{
+    font-family: arial;
+    color: #f1e4ff;
+    font-size: 14px;
+    padding: 8px 80px;
+    border: 2px solid #8c30f5;
+    background: #8c30f5;
+    background: linear-gradient(to top, #8c30f5, #8c30f5);
+    margin: 0px 100px;
+  }
+  #btRegistrar:hover {
+    color: #8c30f5 !important;
+    background: #f1e4ff;
+    background: linear-gradient(to top, #f1e4ff, #f1e4ff);
+  }
+
+  body{
+    background-color:#f1e4ff;
+}
+
+.inputNombre{
+    color: #377bb5;
+}

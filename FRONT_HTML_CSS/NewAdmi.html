@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo Formulario</title>
+    <link rel="stylesheet" href="css/estilosForm.css">
+    <link rel="stylesheet" href="CSS/estilos.css">
+</head>
+
+<style>
+
+.DosColumnas{
+    column-count:1;
+}
+.ParteSuperior{
+    padding: 35px;
+}
+.btOutFinalUser{
+    float: right;
+}
+.inputNombre{
+    outline-color: aquamarine;
+}
+
+</style>
+
+
+<body>
+    <section class="ParteSuperior">
+        <a href="/modificarAdmi.html" class="ParteSuperior">Modificar Administrador</a>
+        <a href="/CalificarAdmi.html"class="ParteSuperior">Calificar Administrador</a>
+        <a href="/NewAdmi.html"class="ParteSuperior">Crear Administrador</a>
+
+        <input id="btOutFinalUser" type="submit" value="Salir">
+        <input id="btOutFinalUser2" type="submit" value="Regresar">
+    </section>
+
+
+
+    
+    
+    <form > <!--En esta etiqueta va todo el formulario-->
+        <h3>Datos generales</h3>
+        
+        <section class="DosColumnas">
+            <div>
+                <!--Primero-->
+                <label for="inputNombre"> Nombre: </label>
+                <br>
+                <input type="text" class="inputNombre"  
+                 required autocomplete="on">
+                <br>
+                <!--Primero-->
+                <label for="inputNombre"> Cargo: </label>
+                <br>
+                <input type="text" class="inputNombre"  
+                 required autocomplete="on">
+                <br>
+                
+            </div>
+            <div>
+                <!--Primero-->
+                <label for="inputNombre"> Id administrador: </label>
+                <br>
+                <input type="text" class="inputNombre"  
+                 required autocomplete="on">
+                <br>
+                <!--Primero-->
+                <label for="inputNombre"> Identificacion: </label>
+                <br>
+                <input type="text" class="inputNombre"  
+                 required autocomplete="on">
+                <br>
+                
+            </div>
+        
+        
+        <br>
+        <input id="btRegistrar" type="submit" value="Enviar">
+    </form>
+
+</body>
+</html>
