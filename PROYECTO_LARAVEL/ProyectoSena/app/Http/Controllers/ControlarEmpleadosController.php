@@ -15,6 +15,7 @@ class ControlarEmpleadosController extends Controller
     public function index()
     {
         //
+        return "Hola guapeton";
     }
 
     /**
@@ -25,6 +26,7 @@ class ControlarEmpleadosController extends Controller
     public function create()
     {
         //
+        return view('calificarEmp.calificar');
     }
 
     /**
@@ -36,6 +38,9 @@ class ControlarEmpleadosController extends Controller
     public function store(Request $request)
     {
         //
+        $AdminEmpleados=request()->except('_token');
+        ControlarEmpleados::insert($AdminEmpleados);
+        return redirect("/empleado");
     }
 
     /**

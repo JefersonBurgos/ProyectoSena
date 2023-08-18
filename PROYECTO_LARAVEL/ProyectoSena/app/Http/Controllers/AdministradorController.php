@@ -15,7 +15,8 @@ class AdministradorController extends Controller
     public function index()
     {
         //
-        return view('administrador.index');
+        $info['administradores']=Administrador::paginate(5);
+        return view('administrador.index',$info);
     }
 
     /**
@@ -26,7 +27,7 @@ class AdministradorController extends Controller
     public function create()
     {
         //
-        return view('administrador.create');
+        return view('administrador.createAdmin');
     }
 
     /**
@@ -38,6 +39,9 @@ class AdministradorController extends Controller
     public function store(Request $request)
     {
         //
+        $datosAdmin=request()->except('_token');
+        Administrador::insert($datosAdmin);
+        return redirect('administrador');
     }
 
     /**
@@ -57,9 +61,11 @@ class AdministradorController extends Controller
      * @param  \App\Models\Administrador  $administrador
      * @return \Illuminate\Http\Response
      */
-    public function edit(Administrador $administrador)
+    public function edit($id)
     {
         //
+        $administrador=Administrador::findOrFail($id);
+        return view('administrador.editAdmin',compact('administrador'));
     }
 
     /**
@@ -69,9 +75,13 @@ class AdministradorController extends Controller
      * @param  \App\Models\Administrador  $administrador
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Administrador $administrador)
+    public function update(Request $request, $id)
     {
         //
+        $datosAdmin= request()->except('_token','_method');
+        Administrador::where('id','=',$id)->update($datosAdmin);
+        $administrador=Administrador::findOrFail($id);
+        return redirect('administrador');
     }
 
     /**
@@ -80,8 +90,10 @@ class AdministradorController extends Controller
      * @param  \App\Models\Administrador  $administrador
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Administrador $administrador)
+    public function destroy($id)
     {
         //
+        Administrador::destroy($id);
+        return redirect('administrador');
     }
 }

@@ -15,6 +15,7 @@ class ControlarAdministradorController extends Controller
     public function index()
     {
         //
+
     }
 
     /**
@@ -25,6 +26,7 @@ class ControlarAdministradorController extends Controller
     public function create()
     {
         //
+        return view('calificarAdmin.calificar');
     }
 
     /**
@@ -36,6 +38,9 @@ class ControlarAdministradorController extends Controller
     public function store(Request $request)
     {
         //
+        $superAdmin=request()->except('_token');
+        ControlarAdministrador::insert($superAdmin);
+        return redirect('/administrador');
     }
 
     /**

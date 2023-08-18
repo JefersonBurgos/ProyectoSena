@@ -26,7 +26,7 @@ class SuperAdministradorController extends Controller
     public function create()
     {
         //
-        return view('SuperAdministrador.create');
+        return view('SuperAdministrador.createSuperAdmin');
     }
 
     /**
@@ -38,6 +38,9 @@ class SuperAdministradorController extends Controller
     public function store(Request $request)
     {
         //
+        $datosSadmin=request()->except('_token');
+        SuperAdministrador::insert($datosSadmin);
+        return response()->json($datosSadmin);
     }
 
     /**

@@ -41,7 +41,7 @@ class EmpleadosController extends Controller
         //
         $datosEmpleado= request()->except('_token');
         Empleados::insert($datosEmpleado);
-        return response()->json($datosEmpleado);
+        return redirect('empleado');
     }
 
     /**
@@ -61,9 +61,11 @@ class EmpleadosController extends Controller
      * @param  \App\Models\Empleados  $empleados
      * @return \Illuminate\Http\Response
      */
-    public function edit(Empleados $empleados)
+    public function edit($id)
     {
         //
+        $empleado=Empleados::findOrFail($id);
+        return view('empleado.edit',compact('empleado'));
     }
 
     /**
@@ -73,9 +75,13 @@ class EmpleadosController extends Controller
      * @param  \App\Models\Empleados  $empleados
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Empleados $empleados)
+    public function update(Request $request, $id)
     {
         //
+        $datosEmpleado= request()->except('_token','_method');
+        Empleados::where('id','=',$id)->update($datosEmpleado);
+        $empleado=Empleados::findOrFail($id);
+        return redirect('empleado');
     }
 
     /**
@@ -84,8 +90,10 @@ class EmpleadosController extends Controller
      * @param  \App\Models\Empleados  $empleados
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Empleados $empleados)
+    public function destroy($id)
     {
         //
+        Empleados::destroy($id);
+        return redirect('empleado');
     }
 }
