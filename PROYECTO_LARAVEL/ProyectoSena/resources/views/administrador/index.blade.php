@@ -9,8 +9,10 @@
     <div class="header">
         <h1>Hola Super Administrador</h1>
         <a href="{{ url('/administrador/create') }}">Registrar Administrador</a>
+        <a href="{{ url('/superAdministrador/create') }}">Registrar Super Admin</a>
         <a href="{{ url('calificarAdmin/create') }}">Calificar Administrador</a>
-        <a href="/login">Cerrar sesión</a>
+        <a href="{{ route('logout') }}">Cerrar sesión</a>
+
     </div>
 
     <div class="container table-container">
@@ -30,7 +32,7 @@
         <tr>
             <td>{{$administrador->id}}</td>
             <td>{{$administrador->Nombre}}</td>
-            <td>{{$administrador->Id_Admin}}</td>
+            <td>{{$administrador->Id_admin}}</td>
             <td>{{$administrador->Cargo}}</td>
             <td>
             <a href="{{url('/administrador/'.$administrador->id.'/edit')}}">

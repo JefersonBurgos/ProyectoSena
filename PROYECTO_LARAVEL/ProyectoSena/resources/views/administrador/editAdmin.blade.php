@@ -11,7 +11,22 @@
         <form action="{{url('/administrador/'.$administrador->id)}}" method="post" enctype="multipart/form-data">
             @csrf
             {{method_field('PATCH')}}
-            @include('administrador.formAdmin')
+            <label for="Identificacion">Identificacion del administrador</label>
+            <input type="text" name="Identificacion" value="{{isset($administrador->Identificacion)?$administrador->Identificacion:''}}" id="Id_Admin">
+            <br>
+
+            <label for="Nombre">Nombre</label>
+            <input type="text" name="Nombre" value="{{isset($administrador->Nombre)?$administrador->Nombre:''}}" id="NombreAdmin">
+            <br>
+
+            <label for="Cargo">Cargo</label>
+            <input type="text" name="Cargo" value="{{isset($administrador->Cargo)?$administrador->Cargo:''}}" id="CargoAdmin">
+            <br>
+
+            <input type="submit" value="Guardar Datos">
+
+            <a href="{{url('administrador/')}}">Regresar</a>
+            <br>
 
         </form>
     </div>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
     <title>Registro</title>
@@ -28,4 +28,4 @@
     </form>
     <p>Ya tienes una cuenta? <a href="/login">Inicia Sesion</a></p>
 </body>
-</html>
+</html> -->

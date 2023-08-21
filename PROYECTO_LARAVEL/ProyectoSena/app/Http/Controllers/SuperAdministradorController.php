@@ -4,25 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\SuperAdministrador;
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class SuperAdministradorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         //
-        return view('superAdministrador.index');
+        return view('SuperAdministrador.createSuperAdmin');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
@@ -38,9 +31,26 @@ class SuperAdministradorController extends Controller
     public function store(Request $request)
     {
         //
-        $datosSadmin=request()->except('_token');
+        $datosSadmin=request()->except('_token','Correo','Clave');
+        $SadminLogin=request()->only('Id_Sadmin','Correo','Clave');
+        $request->validate([
+            'Id_Sadmin' => 'required|string|max:255',
+            'Correo' => 'required|email|unique:users,Correo',
+            'Clave' => 'required|string|min:8',
+        ]);
+
+        $user = User::create([
+            'Identificacion' => $request->input('Id_Sadmin'),
+            'Correo' => $request->Correo,
+            'Clave' => Hash::make($request->Clave),
+            'role' => 'superAdmin',
+        ]);
+        $user->save();
+
+
+
         SuperAdministrador::insert($datosSadmin);
-        return response()->json($datosSadmin);
+        return redirect('administrador');
     }
 
     /**
@@ -83,8 +93,9 @@ class SuperAdministradorController extends Controller
      * @param  \App\Models\SuperAdministrador  $superAdministrador
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SuperAdministrador $superAdministrador)
+    public function destroy($id)
     {
-        //
+        SuperAdministrador::destroy($id);
+        return redirect('administrador');
     }
 }

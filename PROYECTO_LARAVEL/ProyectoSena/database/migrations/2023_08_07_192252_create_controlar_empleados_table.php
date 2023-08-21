@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('controlar_empleados', function (Blueprint $table) {
             $table->id();
             $table->string('Id_Admin');
-            $table->string('Id_Empleado');
+            $table->string('Identificacion');
             $table->integer('Calificacion');
             $table->string('Retroalimentacion');
             $table->timestamps();

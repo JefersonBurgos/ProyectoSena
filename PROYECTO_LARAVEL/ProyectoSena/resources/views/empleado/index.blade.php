@@ -10,7 +10,8 @@
         <h1>Hola Administrador</h1>
         <a href="{{ url('/empleado/create') }}">Registrar Empleado</a>
         <a href="{{ url('calificarEmp/create') }}">Calificar Empleado</a>
-        <a href="/login">Cerrar sesión</a>
+        <a href="{{ route('logout') }}">Cerrar sesión</a>
+
     </div>
 
     <div class="container table-container">

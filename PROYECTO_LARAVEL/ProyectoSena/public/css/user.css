@@ -1,0 +1,23 @@
+body {
+    font-family: Arial, sans-serif;
+}
+.info-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+.info-list {
+    list-style: none;
+    padding: 0;
+}
+.info-list li {
+    margin-bottom: 10px;
+}
+.info-list li strong {
+    display: inline-block;
+    width: 150px;
+    font-weight: bold;
+}

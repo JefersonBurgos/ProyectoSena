@@ -21,14 +21,14 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'Nombre' => 'required|string|max:255',
+            'Identificacion' => 'required|string|max:255',
             'Correo' => 'required|email|unique:users,Correo',
             'Clave' => 'required|string|min:8',
             'role' => 'required|string|max:255',
         ]);
 
         $user = User::create([
-            'Nombre' => $request->Nombre,
+            'Identificacion' => $request->Identificacion,
             'Correo' => $request->Correo,
             'Clave' => Hash::make($request->Clave),
             'role' => $request->role,
@@ -57,13 +57,22 @@ class AuthController extends Controller
         if ($user && Hash::check($request->Clave, $user->Clave)) {
             if ($user->role == 'admin') {
                 //return response(["message"=>"Administrador Autenticado"],Response::HTTP_OK);
+                session(['user_id' => $user->id, 'user_role' => $user->role]);
                 return redirect('/empleado')->with('message', 'Inicio de sesión exitoso.');
             }if ($user->role == 'superAdmin') {
                 //return response(["message"=>"Super Administrador Autenticado"],Response::HTTP_OK);
+                session(['user_id' => $user->id, 'user_role' => $user->role]);
                 return redirect('/administrador')->with('message', 'Inicio de sesión exitoso.');
             }if ($user->role == 'user') {
                 //return response(["message"=>"Empleado Autenticado"],Response::HTTP_OK);
-                return redirect('/empleado/vista')->with('message', 'Inicio de sesión exitoso.');
+                $dato = $user->Identificacion;
+                $datoEmp = DB::table('empleados')->where('Identificacion', $dato)->first();
+                //
+                $calificar= DB::table('controlar_empleados')->where('Identificacion', $dato)->first();;
+                session(['user_id' => $user->id, 'user_role' => $user->role]);
+                return view('empleado.vista')->with('datoEmp', $datoEmp)->with('calificar', $calificar);
+                //return response()->json($datoEmp);
+                //return redirect('/empleado/vista')->with($datoEmp);
             } else{
                 return "No hay tipo de usuario";
             }
@@ -73,6 +82,14 @@ class AuthController extends Controller
         //return response(["message"=>"Credenciales Invalidas"],Response::HTTP_UNAUTHORIZED);
 
         return back()->with('message', 'Credenciales incorrectas. Por favor, intenta de nuevo.');   
+    }
+
+    public function logout()
+    {
+        session()->forget('user_id');
+        session()->forget('user_role');
+        
+        return redirect('/login');
     }
 
 

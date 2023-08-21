@@ -3,15 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Empleados;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class EmpleadosController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         //
@@ -39,7 +37,20 @@ class EmpleadosController extends Controller
     public function store(Request $request)
     {
         //
-        $datosEmpleado= request()->except('_token');
+        $datosEmpleado= request()->except('_token','Correo','Clave');
+        $empleadoLogin= request()->only('Identificacion','Correo','Clave');
+        $request->validate([
+            'Identificacion' => 'required|string|max:255',
+            'Correo' => 'required|email|unique:users,Correo',
+            'Clave' => 'required|string|min:8',
+        ]);
+        $user = User::create([
+            'Identificacion' => $request->Identificacion,
+            'Correo' => $request->Correo,
+            'Clave' => Hash::make($request->Clave),
+            'role' => 'user',
+        ]);
+        $user->save();
         Empleados::insert($datosEmpleado);
         return redirect('empleado');
     }
@@ -81,6 +92,7 @@ class EmpleadosController extends Controller
         $datosEmpleado= request()->except('_token','_method');
         Empleados::where('id','=',$id)->update($datosEmpleado);
         $empleado=Empleados::findOrFail($id);
+        
         return redirect('empleado');
     }
 

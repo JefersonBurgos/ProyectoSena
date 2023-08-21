@@ -10,7 +10,30 @@
     <div class="container">
         <form action="{{ url('/administrador') }}" method="post" enctype="multipart/form-data">
             @csrf
-            @include('administrador.formAdmin')
+            <label for="Id_admin">Identificacion del administrador</label>
+            <input type="text" name="Id_admin" id="Id_admin" required>
+            <br>
+
+            <label for="Nombre">Nombre</label>
+            <input type="text" name="Nombre"  id="NombreAdmin" required>
+            <br>
+
+            <label for="Cargo">Cargo</label>
+            <input type="text" name="Cargo"  id="CargoAdmin" required>
+            <br>
+
+            <label for="Correo">Correo</label>
+            <input type="email" name="Correo"  id="Correo" required>
+            <br>
+
+            <label for="Clave">Clave</label>
+            <input type="password" name="Clave"  id="Clave" required>
+            <br>
+
+            <input type="submit" value="Guardar Datos">
+
+            <a href="{{url('administrador/')}}">Regresar</a>
+            <br>
 
         </form>
     </div>

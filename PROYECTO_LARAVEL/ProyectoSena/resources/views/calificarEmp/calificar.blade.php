@@ -15,8 +15,8 @@
             <input type="text" name="Id_Admin" id="Id_Admin" required>
             <br>
 
-            <label for="Id_Sadmin">Identificacion Empleado</label>
-            <input type="text" name="Id_empleado" id="Id_Sadmin" required>
+            <label for="Identificacion">Identificacion Empleado</label>
+            <input type="text" name="Identificacion" id="Identificacion" required>
             <br>
 
             <label for="Calificacion">Calificacion</label>

@@ -7,31 +7,38 @@ use App\Http\Controllers\ControlarAdministradorController;
 use App\Http\Controllers\ControlarEmpleadosController;
 use App\Http\Controllers\SuperAdministradorController;
 use App\Http\Controllers\AuthController;
+use App\Http\Middleware\UserMiddleware;
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\SuperAdminMiddleware;
+
 
 
 Route::get('/', function () {
     return redirect('/login');
 });
 
-Route::get('/empleado/vista', function () {
-    return view('empleado.vista');
+//Rutas de autenticación
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Rutas para usuarios con rol user
+Route::middleware([UserMiddleware::class])->group(function () {
+    Route::get('/empleado/vista', function () {
+        return view('empleado.vista');
+    });
 });
 
-// Route::get('/calificarEmp/calificar', function () {
-//     return view('calificarEmp.calificar');
-// });
+// Rutas para usuarios con rol admin
+Route::middleware([AdminMiddleware::class])->group(function () {
+    Route::resource('empleado', EmpleadosController::class);
+    Route::resource('calificarEmp', ControlarEmpleadosController::class);
+});
 
-//Del login
-Route::get('/register', [AuthController::class, 'showRegisterForm']);
-Route::post('/register', [AuthController::class, 'register']);
-Route::get('/login', [AuthController::class, 'showLoginForm']);
-Route::post('/login', [AuthController::class, 'login']);
-Route::get('/welcome', [AuthController::class, 'welcome']);
-
-
-Route::resource('empleado', EmpleadosController::class);
-Route::resource('superAdministrador', SuperAdministradorController::class);
-Route::resource('administrador', AdministradorController::class);
-Route::resource('calificarAdmin', ControlarAdministradorController::class);
-Route::resource('calificarEmp', ControlarEmpleadosController::class);
+// Rutas para usuarios con rol superAdmin
+Route::middleware([SuperAdminMiddleware::class])->group(function () {
+    Route::resource('superAdministrador', SuperAdministradorController::class);
+    Route::resource('administrador', AdministradorController::class);
+    Route::resource('calificarAdmin', ControlarAdministradorController::class);
+});
 
